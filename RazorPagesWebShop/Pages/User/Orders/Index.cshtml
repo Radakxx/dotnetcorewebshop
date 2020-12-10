@@ -1,0 +1,26 @@
+﻿@page
+@model RazorPagesWebShop.Pages.Orders.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>My orders</h1>
+@foreach (var item in Model.Order)
+{  
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between mb-4">
+            <div>
+                <h5 class="card-title">Rendelés azonosító: @Html.DisplayFor(modelItem => item.Id)</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Date: @Html.DisplayFor(modelItem => item.OrderDate)</h6>
+            </div>
+            <div>
+                <h4 class="card-text">Total price: @item.TotalPrice()</h4>
+                <a class="card-link btn btn-primary float-lg-right" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+}

@@ -1,0 +1,80 @@
+﻿@page
+@model RazorPagesWebShop.Pages.CartModel
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@if (Model.Cart == null || !Model.Cart.ProductsToCarts.Any())
+{
+    <h1>Your cart is empty</h1>
+}
+@if (Model.Cart != null && Model.Cart.ProductsToCarts.Any())
+{
+    <h1>Cart</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductsToCarts[0].Product.Name)
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Availability
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductsToCarts[0].Product.Price)
+                </th>
+                <th>
+                    Total
+                </th>
+                <th>
+                    <form method="post" class="form-group">
+                        <input type="submit" value="Clear cart" asp-route-id="@null" class="btn-secondary" />
+                    </form>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ProductsToCarts)
+            {
+                <tr>
+                    <td>
+                        <a asp-page="/User/Products/Details" asp-route-id="@item.ProductId">
+                            @Html.DisplayFor(modelItem => item.Product.Name)
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-page-handler="Minus" asp-route-productid="@item.ProductId" asp-route-cartid="@item.CartId">-</a>
+                        @Html.DisplayFor(modelItem => item.ProductQuantity)
+                        <a asp-page-handler="Plus" asp-route-productid="@item.ProductId" asp-route-cartid="@item.CartId">+</a>
+                    </td>
+                    <td>
+                        @if (item.ProductQuantity > item.Product.Stock)
+                        {<p>OUT OF STOCK</p>}
+                        else
+                        {<p>Available: @item.Product.Stock in stock</p>}
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Price)
+                    </td>
+                    <td>
+                        @(item.Product.Price*item.ProductQuantity)
+                    </td>
+                    <td>
+                        <form method="post">
+                            <input type="submit" value="Remove" asp-route-id="@item.ProductId" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h4>Total price: @Model.Cart.TotalPrice()</h4>
+    <form method="get" class="form-group">
+        <input type="submit" value="Place Order" class="btn btn-primary float-sm-right" asp-page="/User/Order" />
+    </form>
+}
+

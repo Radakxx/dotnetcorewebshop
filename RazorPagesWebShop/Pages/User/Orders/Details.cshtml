@@ -1,0 +1,76 @@
+﻿@page
+@model RazorPagesWebShop.Pages.Orders.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1>Order Details</h1>
+        <a asp-page="./Index">Back to My Orders</a>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between mb-4">
+            <div>
+                <h5 class="card-title">
+                    @Html.DisplayNameFor(model => model.Order.Id): @Html.DisplayFor(model => model.Order.Id)
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    Shipping to: @Html.DisplayFor(model => model.Order.OrderInfo.FirstName) @Html.DisplayFor(model => model.Order.OrderInfo.LastName)
+                </h6>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    @Html.DisplayFor(model => model.Order.OrderInfo.ZipCode)
+                    @Html.DisplayFor(model => model.Order.OrderInfo.Country)
+                    @Html.DisplayFor(model => model.Order.OrderInfo.City)
+                    @Html.DisplayFor(model => model.Order.OrderInfo.Address)
+                    @Html.DisplayFor(model => model.Order.OrderInfo.HouseNumber)
+                </h6>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    @Html.DisplayNameFor(model => model.Order.OrderInfo.Phone): @Html.DisplayFor(model => model.Order.OrderInfo.Phone)
+                </h6>
+            </div>
+            <div>
+                <h3>
+                    @Html.DisplayNameFor(model => model.Order.Status): @Html.DisplayFor(model => model.Order.Status)
+                </h3>
+                <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayNameFor(model => model.Order.OrderDate): @Html.DisplayFor(model => model.Order.OrderDate)</h6>
+                <h4>Total price: @Model.Order.TotalPrice()</h4>
+            </div>
+        </div>
+        <h6>Ordered items:</h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductToOrder[0].Product.Name)
+                    </th>
+                    <th></th>
+                    <th>
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Order.ProductsToOrders)
+                {
+                    <tr>
+                        <td>
+                            <a asp-page="/User/Products/Details" asp-route-id="@item.ProductId">
+                                @Html.DisplayFor(modelItem => item.Product.Name)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductQuantity) * @Html.DisplayFor(modelItem => item.Product.Price)
+                        </td>
+                        <td>
+                            @(item.Product.Price*item.ProductQuantity)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

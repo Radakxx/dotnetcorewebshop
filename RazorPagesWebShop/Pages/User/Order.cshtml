@@ -1,0 +1,68 @@
+﻿@page
+@model RazorPagesWebShop.Pages.OrderModel
+@{
+}
+<div class="card col-lg-6">
+    <h2 class="card-header">Please enter the order details below:</h2>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card-body">
+            <h5>Shipping to:</h5>
+            <div class="d-flex justify-content-between mb-4">
+                <div>
+                    <div class="form-group">
+                        <label asp-for="OrderInfo.FirstName" class="control-label"></label>
+                        <input required asp-for="OrderInfo.FirstName" class="form-control" />
+                        <span asp-validation-for="OrderInfo.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OrderInfo.Country" class="control-label"></label>
+                        <input required asp-for="OrderInfo.Country" class="form-control" />
+                        <span asp-validation-for="OrderInfo.Country" class="text-danger"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label asp-for="OrderInfo.LastName" class="control-label"></label>
+                        <input required asp-for="OrderInfo.LastName" class="form-control" />
+                        <span asp-validation-for="OrderInfo.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OrderInfo.ZipCode" class="control-label"></label>
+                        <input required asp-for="OrderInfo.ZipCode" class="form-control" />
+                        <span asp-validation-for="OrderInfo.ZipCode" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderInfo.City" class="control-label"></label>
+                <input required asp-for="OrderInfo.City" class="form-control" />
+                <span asp-validation-for="OrderInfo.City" class="text-danger"></span>
+            </div>
+            <div class="d-flex justify-content-between mb-4">
+                <div>
+                    <div class="form-group">
+                        <label asp-for="OrderInfo.Address" class="control-label"></label>
+                        <input required asp-for="OrderInfo.Address" class="form-control" />
+                        <span asp-validation-for="OrderInfo.Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OrderInfo.Phone" class="control-label"></label>
+                        <input required asp-for="OrderInfo.Phone" class="form-control" />
+                        <span asp-validation-for="OrderInfo.Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label asp-for="OrderInfo.HouseNumber" class="control-label"></label>
+                        <input required asp-for="OrderInfo.HouseNumber" class="form-control" />
+                        <span asp-validation-for="OrderInfo.HouseNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Order" class="btn btn-primary float-lg-right" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

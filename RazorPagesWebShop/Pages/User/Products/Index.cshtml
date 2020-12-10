@@ -1,0 +1,88 @@
+﻿@page "{searchString?}"
+@model RazorPagesWebShop.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <section class="col-lg-3 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <form class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-xs-12">Categories:</label>
+                        <div class="col-xs-12">
+                            <div class="input-group col-xs-12">
+                                <select name="category" asp-for="ProductCategory" asp-items="Model.Categories">
+                                    <option value="">All</option>
+                                    <option selected="" value="@ViewData["Category"]">@ViewData["Category"]</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xs-12">Tags:</label>
+                        <div class="col-xs-12">
+                            <div class="input-group col-xs-12">
+                                <select multiple="" name="tags" asp-for="SelectedTags" asp-items="Model.TagsOptions">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xs-12">Title:</label>
+                        <div class="col-xs-12">
+                            <div class="input-group col-xs-12">
+                                <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-3">
+                            <input type="submit" value="Search" class="btn btn-sm btn-outline-secondary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <main role="main" class="col-lg-9 ml-sm-auto px-4">
+            <h1 class="h2">You searched for: "@ViewData["CurrentFilter"]"</h1>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+                <h2 class="h6">@Model.Products.Count products matched the criteria</h2>
+                <div class="btn-toolbar mb-2 mb-md-2">
+                    <div class="btn-group mr-2">
+                        <a asp-action="Get" asp-route-sortOrder="@ViewData["PriceSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-category="@ViewData["Category"]" class="btn btn-sm btn-outline-secondary">Sort by: Price</a>
+                        <a asp-action="Get" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-category="@ViewData["Category"]" class="btn btn-sm btn-outline-secondary">Sort by: Name</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in Model.Products)
+                {
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="~/images/@item.Image" class="card-img-top img-fluid" text="Thumbnail" />
+                            <div class="card-body d-flex flex-column">
+                                <a class="stretched-link" asp-page="./Details" asp-route-id="@item.Id"></a>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Name)</p>
+                                <div class="d-flex justify-content-between align-items-center mt-auto">
+                                    <h5 class="text-info">@Html.DisplayFor(modelItem => item.Price)</h5>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        bool disabled = item.IsDisabled;
+                                        <form method="post">
+                                            <input type="submit" disabled=@disabled asp-page="./Details" asp-route-id="@item.Id" asp-page-handler="Cart" value="Add to Cart" class="btn btn-primary " />
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </main>
+    </div>
+</div>

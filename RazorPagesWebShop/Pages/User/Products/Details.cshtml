@@ -1,0 +1,83 @@
+﻿@page "{id:int?}"
+@using RazorPagesWebShop.Models
+@model RazorPagesWebShop.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+<div class="row mb-2">
+    <div class="col-md-6">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <img src="~/images/@Model.Product.Image" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">
+                    <a asp-page="./Index" asp-route-category="@Model.Product.Category.Name">@Html.DisplayFor(model => model.Product.Category.Name)</a>
+                </strong>
+                <h3 class="mb-0"> @Html.DisplayFor(model => model.Product.Name)</h3>
+                <div class="mb-1 text-muted">@Html.DisplayFor(model => model.Product.Price)</div>
+                <p class="card-text mb-auto">@Html.DisplayFor(model => model.Product.Description)</p>
+                <p class="card-text mb-auto">@Html.DisplayFor(model => model.Product.ProductsToTags.FirstOrDefault().Tag.Name)</p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="mb-1 text-muted">
+                        @(Model.Product.AverageOfRatings()+1)/5 from @Html.DisplayFor(model => model.Product.Ratings.Count) ratings.
+                    </div>
+                    bool disabled = Model.Product.IsDisabled;
+                    <div class="mb-1 text-muted">Availability: @Html.DisplayFor(model => model.Product.Stock) in stock</div>
+                    <form method="post" asp-page-handler="Cart" class="form-group">
+                        <input style="width:4em" type="number" value="1" min="1" step="1" asp-for="Quantity" />
+                        <input type="submit" disabled=@disabled value="Add to Cart" class="btn btn-primary" />
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        @foreach (var item in Model.Product.Ratings)
+        {
+            <div class="card">
+                <h6 class="card-header mb-2 text-muted">@item.User.LastName: @((int)item.RatingValue+1)/5</h6>
+                <div class="card-body">
+                    <h5>@item.Title</h5>
+                    <p>@item.Description</p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-12">
+        <form method="post">
+            <div class="card">
+                <h5 class="card-header">Leave a rating</h5>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating.RatingValue" class="control-label"></label>
+                <select asp-for="Rating.RatingValue" class="form-control" asp-items="Html.GetEnumSelectList<RazorPagesWebShop.Models.RatingValue>()">
+                    <option disabled selected></option>
+                </select>
+                <span asp-validation-for="Rating.RatingValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating.Title" class="control-label"></label>
+                <input asp-for="Rating.Title" class="form-control" />
+                <span asp-validation-for="Rating.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating.Description" class="control-label"></label>
+                <input asp-for="Rating.Description" class="form-control" />
+                <span asp-validation-for="Rating.Description" class="text-danger"></span>
+            </div>
+            <input type="submit" asp-page-handler="Rating" value="Rate this product" class="btn btn-primary" />
+        </form>
+    </div>
+</div>

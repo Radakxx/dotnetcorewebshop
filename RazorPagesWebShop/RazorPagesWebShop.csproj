@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Admin\Customers\**" />
+    <Compile Remove="Pages\Admin\Users\**" />
+    <Compile Remove="Pages\Cart\**" />
+    <Content Remove="Pages\Admin\Customers\**" />
+    <Content Remove="Pages\Admin\Users\**" />
+    <Content Remove="Pages\Cart\**" />
+    <EmbeddedResource Remove="Pages\Admin\Customers\**" />
+    <EmbeddedResource Remove="Pages\Admin\Users\**" />
+    <EmbeddedResource Remove="Pages\Cart\**" />
+    <None Remove="Pages\Admin\Customers\**" />
+    <None Remove="Pages\Admin\Users\**" />
+    <None Remove="Pages\Cart\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200301114803_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200301114803_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200304113521_InitialCreate2.cs" />
+    <Compile Remove="Migrations\20200304113521_InitialCreate2.Designer.cs" />
+    <Compile Remove="Migrations\20200304155959_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200304155959_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200308100329_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200308100329_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200422123553_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200422123553_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200422123845_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200422123845_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200422124421_IntialCreate.cs" />
+    <Compile Remove="Migrations\20200422124421_IntialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200501163111_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200501163111_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200502140302_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200502140302_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200511111936_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200511111936_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200525072633_AddImg.cs" />
+    <Compile Remove="Migrations\20200525072633_AddImg.Designer.cs" />
+    <Compile Remove="Migrations\20201125201346_PackageActive.cs" />
+    <Compile Remove="Migrations\20201125201346_PackageActive.Designer.cs" />
+    <Compile Remove="Migrations\20201201105710_ptc.cs" />
+    <Compile Remove="Migrations\20201201105710_ptc.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\icons\bootstrap-stack.svg" />
+    <None Include="wwwroot\icons\bootstrap.svg" />
+    <None Include="wwwroot\icons\download.svg" />
+    <None Include="wwwroot\icons\github.svg" />
+    <None Include="wwwroot\icons\import.svg" />
+    <None Include="wwwroot\icons\lightning.svg" />
+    <None Include="wwwroot\icons\menu.svg" />
+    <None Include="wwwroot\icons\opencollective.svg" />
+    <None Include="wwwroot\icons\placeholder.svg" />
+    <None Include="wwwroot\icons\slack.svg" />
+    <None Include="wwwroot\icons\twitter.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+
+
+</Project>

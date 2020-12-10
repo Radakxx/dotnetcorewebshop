@@ -1,0 +1,29 @@
+﻿@page
+@model RazorPagesWebShop.Pages.Ratings.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>My ratings</h1>
+@foreach (var item in Model.Rating)
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between mb-4">
+                <div>
+                    <h4 class="card-text">@Html.DisplayFor(modelItem => item.Title)</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.RatingValue)</h6>
+                </div>
+                <div>
+                    <h5 class="card-title"><a asp-page="/User/Products/Details" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Product.Name)</a></h5>
+                    <a class="card-link btn btn-primary float-lg-right" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                </div>
+            </div>
+            <p class="card-text">
+                @Html.DisplayFor(modelItem => item.Description)
+            </p>
+        </div>
+    </div>
+}

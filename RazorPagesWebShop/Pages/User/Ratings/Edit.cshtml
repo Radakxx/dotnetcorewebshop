@@ -1,0 +1,46 @@
+﻿@page
+@model RazorPagesWebShop.Pages.Ratings.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Edit rating</h1>
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Rating.Id" />
+            <input type="hidden" asp-for="Rating.ProductId" />
+            <input type="hidden" asp-for="Rating.UserId" />
+            <div class="form-group">
+                <label asp-for="Rating.Title" class="control-label"></label>
+                <input asp-for="Rating.Title" class="form-control" />
+                <span asp-validation-for="Rating.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating.Description" class="control-label"></label>
+                <input asp-for="Rating.Description" class="form-control" />
+                <span asp-validation-for="Rating.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating.RatingValue" class="control-label"></label>
+                <select asp-for="Rating.RatingValue" class="form-control" asp-items="Html.GetEnumSelectList<RazorPagesWebShop.Models.RatingValue>()"></select>
+                <span asp-validation-for="Rating.RatingValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" asp-page-handler="Save" value="Save" class="btn btn-primary" />
+                <input type="submit" asp-page-handler="Delete" asp-route-id="@Model.Rating.Id" value="Delete" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

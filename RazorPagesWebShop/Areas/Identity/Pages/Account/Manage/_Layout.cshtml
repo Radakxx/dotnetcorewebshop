@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Web Shop</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-dark flex-md-nowrap mb-3 shadow">
+            <div class="container">
+                <a class="navbar-brand col-sm-3 col-md-2 mr-0" asp-page="/Index">WebShop</a>
+                <button class="navbar-toggler btn-light" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <form method="get">
+                    <input type="text" asp-page="/User/Products/Index" name="SearchString" placeholder="Search" aria-label="Search" class="form-control form-control-dark w-100" />
+                    <input type="submit" asp-page="/User/Products/Index" value="Filter" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
+                </form>
+
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1 px-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-page="/User/Products/Index">Products</a>
+                        </li>
+
+                        <li class="nav-item text-nowrap">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a class="nav-link text-light" asp-page="/Admin/Dashboard">Admin Page</a>
+                                }
+                            }
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-page="/About">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <h1>Manage your account</h1>
+            
+            <div>
+                <h4>Change your account settings</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-md-3">
+                        <partial name="_ManageNav" />
+                    </div>
+                    <div class="col-md-9">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - Razor Pages Web Shop - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", false)
+</body>
+</html>
